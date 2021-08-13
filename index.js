@@ -16,13 +16,22 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
 
 app.get('/', function (req, res) {
     res.render('index');
+});
+
+app.post('/theGreets', function (req, res) {
+
+greetInsta.greet({
+    name: req.body.inputBox,
+});
+    console.log(greetInsta.storeNames());
+    res.redirect('/')
 });
 
 

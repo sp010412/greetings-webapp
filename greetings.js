@@ -2,7 +2,7 @@ module.exports = function greetFunction(existingNames) {
     var nameList = existingNames || [];
 
     function storeNames(name) {
-        var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+        // var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
         if (!nameList.includes(name)) {
             nameList.push(name);
         } else {
@@ -11,7 +11,7 @@ module.exports = function greetFunction(existingNames) {
     }
 
     function greet(selectL, name) {
-        var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+        // var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
         if (selectL === "English") {
             return "Hi, " + name;
         }

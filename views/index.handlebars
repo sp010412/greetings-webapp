@@ -20,38 +20,41 @@
             </div>
 
             <div class="yep">
-                <input type="text"  name="noNumbers" value="" placeholder="enter your name" class="textName">
+                <form action="/theGreets" method="POST">
+                    <input type="text" name="inputBox" value="" placeholder="enter your name" class="textName">
             </div>
 
             <div class="yep">
                 <h4>counter</h4>
-                <span class="counter"> 0 </span>
+                    <span class="counter"> 0 </span>
             </div>
 
             <div class="error">
                 <p>Enter alphabet letters and not numbers, eg.Smith</p>
             </div>
-    
+
         </div>
-        
+
         <div class="radioClicks">
-            <label class="">
-                <input id="clearOut1" type="radio" name="selectTypeRadio" class="selectTypeRadio1" value="English">
-                <span class="label-body">English</span>
-            </label>
-            <label class="">
-                <input id="clearOut2"  type="radio" name="selectTypeRadio" class="selectTypeRadio1" value="Afrikaans">
-                <span class="label-body">Afrikaans</span>
-            </label>
-            <label class="">
-                <input id="clearOut3" type="radio" name="selectTypeRadio" class="selectTypeRadio1" value="Isixhosa">
-                <span class="label-body">Isixhosa</span>
-            </label>
+                <label class="">
+                    <input id="clearOut1" type="radio" name="selected" class="selectTypeRadio1" value="English">
+                    <span class="label-body">English</span>
+                </label>
+                <label class="">
+                    <input id="clearOut2" type="radio" name="selected" class="selectTypeRadio1"
+                        value="Afrikaans">
+                    <span class="label-body">Afrikaans</span>
+                </label>
+                <label class="">
+                    <input id="clearOut3" type="radio" name="selected" class="selectTypeRadio1" value="Isixhosa">
+                    <span class="label-body">Isixhosa</span>
+                </label>
         </div>
 
         <div class="buttonGreet">
-            <button class="button-primary greetMeBtn"   type="button" name="button"> <span>Greet Me!</span></button>
-            <button class="button-primary resetBtn"  type="button" name="button"> <span>RESET!</span></button>
+                <button class="button-primary greetMeBtn" type="submit" name="button"> <span>Greet Me!</span></button>
+            </form>
+            <button class="button-primary resetBtn" type="submit" name="button"> <span>RESET!</span></button>
 
         </div>
 
