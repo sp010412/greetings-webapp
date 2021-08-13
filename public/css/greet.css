@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap');
+body {
+    background: #fff;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Original Surfer', cursive;
+    ;
+}
+
+
+.box {
+    border: solid;
+    border-radius: 10%;
+    height: 65vh;
+    background: grey;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 35%;
+    margin: auto;
+}
+
+.nameSection {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.error {
+    font-size: 10px;
+    color: lightsteelblue;
+    width: 65%;
+    margin-left: 35px;
+}
+
+.yep {
+    display: inline-flex
+}
+
+
+.radioClicks {
+    padding-: 20px;
+    text-align: center;
+}
+
+.buttonGreet {
+    padding-bottom: 10px;
+    border-radius: 1%;
+}
+
+.last {
+    padding-top: 25px;
+    text-align: center;
+    background: gray;
+    border: solid;
+    border-radius: 5px;
+    padding-bottom: 25px;
+}
+
+/*.displayedName{
+font-family: 'Original Surfer', cursive;
+}*/
+
+.greetMeBtn, .resetBtn {
+    background-color: white;
+    color: black;
+    border: 2px solid red;
+    width: 30%;
+    height: 5vh;
+}
+
+.greetMeBtn, .resetBtn {
+    transition-duration: 0.4s;
+}
+
+.greetMeBtn:hover, .resetBtn:hover {
+    background-color: red;
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.greetMeBtn span, .resetBtn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.greetMeBtn span:after, .resetBtn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.greetMeBtn:hover span, .resetBtn:hover span {
+    padding-right: 25px;
+}
+
+.greetMeBtn:hover span:after, .resetBtn:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.red {
+    color: red;
+}
+
+.buttonGreet {
+    text-align: center;
+}
+
+.counter {
+padding-top: 22px;
+padding-left: 10px;
+}
+
+@media (max-width:1024px) {
+    .box {
+        width: 100%;
+        height: 88vh;
+    }
+    .last {
+        width: 99%;
+    }
+}
+
+@media (max-width:790px) {
+    .box {
+        width: 100%;
+        height: 80vh;
+    }
+    .last {
+        width: 99%;
+    }
+    .greetMeBtn {
+        margin-top: 15px;
+        margin-bottom: 20px;
+        width: 45%;
+        padding-bottom: 15px;
+    }
+    .resetBtn {
+        width: 45%;
+        padding-bottom: 15px;
+    }
+    
+}
+
+@media (max-width:375px) {
+    .box {
+        width: 100%;
+        height: 90vh;
+    }
+    .last {
+        width: 99%;
+    }
+    .buttonGreet {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .greetMeBtn {
+        margin-top: 15px;
+        margin-bottom: 20px;
+        width: 45%;
+        padding-bottom: 15px;
+    }
+    .resetBtn {
+        width: 45%;
+        padding-bottom: 15px;
+    }
+    .radioClicks {
+        text-align: center;
+    }
+}
+
+@media (max-width:320px) {
+    .box {
+        width: 100%;
+        height: 85vh;
+    }
+    .last {
+        width: 98%;
+    }
+    .buttonGreet {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .greetMeBtn {
+        margin-top: 15px;
+        margin-bottom: 20px;
+        width: 45%;
+        padding-bottom: 15px;
+    }
+    .resetBtn {
+        width: 45%;
+        padding-bottom: 15px;
+    }
+    .radioClicks {
+        text-align: center;
+    }
+}

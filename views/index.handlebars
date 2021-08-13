@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting exercise</title>
+    <link rel="stylesheet" href="/css/greet.css">
+</head>
+
+<body>
+    <div class="box">
+        <h1>Greeting</h1>
+
+        <div class="nameSection">
+
+            <div class="yep">
+                Name
+            </div>
+
+            <div class="yep">
+                <input type="text"  name="noNumbers" value="" placeholder="enter your name" class="textName">
+            </div>
+
+            <div class="yep">
+                <h4>counter</h4>
+                <span class="counter"> 0 </span>
+            </div>
+
+            <div class="error">
+                <p>Enter alphabet letters and not numbers, eg.Smith</p>
+            </div>
+    
+        </div>
+        
+        <div class="radioClicks">
+            <label class="">
+                <input id="clearOut1" type="radio" name="selectTypeRadio" class="selectTypeRadio1" value="English">
+                <span class="label-body">English</span>
+            </label>
+            <label class="">
+                <input id="clearOut2"  type="radio" name="selectTypeRadio" class="selectTypeRadio1" value="Afrikaans">
+                <span class="label-body">Afrikaans</span>
+            </label>
+            <label class="">
+                <input id="clearOut3" type="radio" name="selectTypeRadio" class="selectTypeRadio1" value="Isixhosa">
+                <span class="label-body">Isixhosa</span>
+            </label>
+        </div>
+
+        <div class="buttonGreet">
+            <button class="button-primary greetMeBtn"   type="button" name="button"> <span>Greet Me!</span></button>
+            <button class="button-primary resetBtn"  type="button" name="button"> <span>RESET!</span></button>
+
+        </div>
+
+        <div class="last">
+            <span class="displayedName"> </span>
+        </div>
+    </div>
+
+</body>
+
+</html>
