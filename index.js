@@ -25,13 +25,20 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.post('/theGreets', function (req, res) {
+app.post('/', function (req, res) {
+var name = req.body.inputBox;
 
-greetInsta.greet({
-    name: req.body.inputBox,
-});
-    console.log(greetInsta.storeNames());
-    res.redirect('/')
+var language = req.body.selected;
+
+var output = greetInsta.greet(language,name); 
+
+var count = greetInsta.getCount();
+
+res.render('index',{
+    output,
+    count
+})
+console.log(count)
 });
 
 
