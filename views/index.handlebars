@@ -1,68 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="box">
+    <h1>Greeting</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greeting exercise</title>
-    <link rel="stylesheet" href="/css/greet.css">
-</head>
+    <div class="nameSection">
 
-<body>
-    <div class="box">
-        <h1>Greeting</h1>
-
-        <div class="nameSection">
-
-            <div class="yep">
-                Name
-            </div>
-
-            <div class="yep">
-                <form action="/" method="POST">
-                    <input type="text" name="inputBox" value="" placeholder="enter your name" class="textName">
-            </div>
-
-            <div class="yep">
-                <h4>counter</h4>
-                <span class="counter">{{count}}</span>
-            </div>
-
-            <div class="error">
-                <p>Enter alphabet letters and not numbers, eg.Smith</p>
-            </div>
-
+        <div class="yep">
+            Name
         </div>
 
-        <div class="radioClicks">
-            <label class="">
-                <input id="clearOut1" type="radio" name="selected" class="selectTypeRadio1" value="English">
-                <span class="label-body">English</span>
-            </label>
-            <label class="">
-                <input id="clearOut2" type="radio" name="selected" class="selectTypeRadio1" value="Afrikaans">
-                <span class="label-body">Afrikaans</span>
-            </label>
-            <label class="">
-                <input id="clearOut3" type="radio" name="selected" class="selectTypeRadio1" value="Isixhosa">
-                <span class="label-body">Isixhosa</span>
-            </label>
+        <div class="yep">
+            <form action="/" method="POST">
+                <input type="text" name="inputBox" value="" placeholder="enter your name" class="textName">
         </div>
 
-        <div class="buttonGreet">
-            <button class="button-primary greetMeBtn" type="submit" name="button"> <span>Greet Me!</span></button>
-
-            <button class="button-primary resetBtn" type="submit" name="button"> <span>RESET!</span></button>
-
+        <div class="yep">
+            <h4>counter</h4>
+            <span class="counter">{{count}}</span>
         </div>
 
-        <div class="last">
-            <span class="displayedName">{{output}}</span>
+        <div class="error">
+            <p>Enter alphabet letters and not numbers, eg.Smith</p>
         </div>
-        </form>
+
     </div>
 
-</body>
+    <div class="radioClicks">
+        <label class="">
+            <input id="clearOut1" type="radio" name="selected" class="selectTypeRadio1" value="English">
+            <span class="label-body">English</span>
+        </label>
+        <label class="">
+            <input id="clearOut2" type="radio" name="selected" class="selectTypeRadio1" value="Afrikaans">
+            <span class="label-body">Afrikaans</span>
+        </label>
+        <label class="">
+            <input id="clearOut3" type="radio" name="selected" class="selectTypeRadio1" value="Isixhosa">
+            <span class="label-body">Isixhosa</span>
+        </label>
+    </div>
 
-</html>
+    <div class="buttonGreet">
+        <button class="button-primary greetMeBtn" type="submit" name="button"> <span>Greet Me!</span></button>
+
+        <button class="button-primary resetBtn" type="submit" name="button"> <span>RESET!</span></button>
+
+    </div>
+
+    <div class="last">
+        <span class="displayedName">{{output}}</span>
+    </div>
+    </form>
+    <span><a href="/greeted">Check</a></span>
+</div>

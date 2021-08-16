@@ -1,12 +1,12 @@
 module.exports = function greetFunction(existingNames) {
-    var nameList = existingNames || [];
+    // var nameList = existingNames || [];
 
     var namesList = {}
 
     function storeNames(name) {
         // var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        if (!nameList.includes(name)) {
-            nameList.push(name);
+        if (!namesList.includes(name)) {
+            namesList.push(name);
         } else {
             return
         }
@@ -28,9 +28,9 @@ module.exports = function greetFunction(existingNames) {
 
     }
 
-    function counter() {
-        return nameList.length
-    }
+    // function counter() {
+    //     return nameList.length
+    // }
 
     function setCount(name) {
         if (namesList[name] == undefined) {
@@ -43,7 +43,7 @@ module.exports = function greetFunction(existingNames) {
     }
 
     function getNames() {
-        return nameList
+        return Object.keys(namesList)
     }
 
     function conditions(name) {
@@ -60,7 +60,7 @@ module.exports = function greetFunction(existingNames) {
 
     return {
         greet,
-        counter,
+        // counter,
         storeNames,
         getNames,
         conditions,

@@ -1,0 +1,11 @@
+<div class="">
+    <h1>Who was greeted? </h1>
+
+
+    {{#each getNames}}
+    <ul>
+        <li> <a href="/greeted/{{this}}">{{this}}</a> </li>
+    </ul>
+    {{/each}}
+
+</div>

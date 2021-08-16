@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const greetFunction = require("./greetings");
 const app = express();
-const greetInsta = greetFunction ();
+const greetInsta = greetFunction();
 const handlebarSetup = exphbs({
     partialsDir: "./views/partials",
     viewPath: './views',
@@ -26,23 +26,20 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-var name = req.body.inputBox;
+    var name = req.body.inputBox;
+    var language = req.body.selected;
+    var output = greetInsta.greet(language, name);
+    var count = greetInsta.getCount();
 
-var language = req.body.selected;
-
-var output = greetInsta.greet(language,name); 
-
-var count = greetInsta.getCount();
-
-res.render('index',{
-    output,
-    count
-})
-console.log(count)
+    res.render('index', {
+        output,
+        count
+    })
 });
 
-
-
+app.get("/greeted", function (req, res) {
+    res.render("greeted", { getNames: greetInsta.getNames() });
+});
 
 const PORT = process.env.PORT || 3001;
 
