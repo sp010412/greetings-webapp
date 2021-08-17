@@ -30,16 +30,24 @@ app.post('/', function (req, res) {
     var language = req.body.selected;
     var output = greetInsta.greet(language, name);
     var count = greetInsta.getCount();
-
+    // greetInsta.setCount(name);
     res.render('index', {
         output,
-        count
+        count,
     })
 });
 
 app.get("/greeted", function (req, res) {
-    res.render("greeted", { getNames: greetInsta.getNames() });
+    res.render("greeted", { greeted: greetInsta.getNames() });
 });
+
+app.get('/greeted/:inputBox', function (req, res) {
+    var name = req.params.inputBox;
+    var allNames = greetInsta.getList();
+    console.log(allNames)
+    res.render("counter", { greetedName: name, nameCount: allNames[name] });
+
+})
 
 const PORT = process.env.PORT || 3001;
 
