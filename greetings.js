@@ -13,9 +13,8 @@ module.exports = function greetFunction(existingNames) {
     // }
 
     function greet(selectL, name) {
-        // var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        setCount(name);
-        
+        //var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+        setCount(name);        
         if (selectL === "English") {
             return "Hi, " + name;
         }
@@ -25,7 +24,6 @@ module.exports = function greetFunction(existingNames) {
         if (selectL === "Isixhosa") {
             return "Molo, " + name;
         }
-
     }
 
     // function counter() {
