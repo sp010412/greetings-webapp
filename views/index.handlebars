@@ -1,8 +1,14 @@
 <div class="box">
     <h1>Greeting</h1>
 
+    <div class="error">
+        {{messages.info}}
+    </div>
     <div class="nameSection">
 
+        <div class="sign">
+            <p>Enter alphabet letters and not numbers, eg.Smith</p>
+        </div>
         <div class="yep">
             Name
         </div>
@@ -17,9 +23,7 @@
             <span class="counter" name="count">{{count}}</span>
         </div>
 
-        <div class="error">
-            <p>Enter alphabet letters and not numbers, eg.Smith</p>
-        </div>
+
 
     </div>
 
@@ -49,5 +53,7 @@
         <span class="displayedName">{{output}}</span>
     </div>
     </form>
-    <span><a href="/greeted">Check</a></span>
+    <div class="check">
+    <span><a href="/greeted">Check List:</a></span>
+    </div>
 </div>

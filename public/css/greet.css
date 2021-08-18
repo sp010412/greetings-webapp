@@ -14,10 +14,10 @@ h1 {
 .box {
     border: solid;
     border-radius: 10%;
-    height: 70vh;
+    height: 73vh;
     background: grey;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 85%;
+    width: 75%;
     margin: auto;
 }
 
@@ -26,11 +26,23 @@ h1 {
     text-align: center;
 }
 
-.error {
-    font-size: 10px;
-    color: lightsteelblue;
+.sign {
+    font-size: 15px;
+    color: white;
     width: 65%;
-    margin-left: 35px;
+    margin-left: 170px;
+}
+
+.error{
+    color: crimson;
+    font-size: 20px;
+    text-align: center;
+}
+
+.linkOne li{
+    text-align: center;
+    list-style-type: none;
+    font-size: 25px;
 }
 
 .yep {
@@ -56,6 +68,12 @@ h1 {
     border-radius: 5px;
     padding-bottom: 25px;
 }
+.check{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 25px;
+}
+
 
 /*.displayedName{
 font-family: 'Original Surfer', cursive;

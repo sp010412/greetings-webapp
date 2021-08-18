@@ -52,7 +52,7 @@ module.exports = function greetFunction(existingNames) {
     }
 
     function conditions(name) {
-        name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+        // name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
         const regex = /[a-zA-Z]$/g;
 
         if (name === "") {
