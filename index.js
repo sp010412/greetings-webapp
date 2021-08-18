@@ -44,7 +44,7 @@ app.get("/greeted", function (req, res) {
 app.get('/greeted/:inputBox', function (req, res) {
     var name = req.params.inputBox;
     var allNames = greetInsta.getList();
-    console.log(allNames)
+    // console.log(allNames)
     res.render("counter", { greetedName: name, nameCount: allNames[name] });
 
 })

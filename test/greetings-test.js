@@ -5,20 +5,20 @@ const greetFunction = require("../greetings");
 describe('greetings', function () {
     it('it should get names set', function () {
         let tests = greetFunction()
-        tests.storeNames("saneliswa")
+        tests.setNames("saneliswa")
 
 
-        assert.equal(tests.getNames(), "Saneliswa");
+        assert.equal(tests.getNames(), "saneliswa");
     });
 
     it('it should prevent duplication of names from being counted ', function () {
         let tests = greetFunction()
-        tests.storeNames("saneliswa")
-        tests.storeNames("saneliswa")
-        tests.storeNames("patience")
-        tests.storeNames("nande")
+        tests.setNames("saneliswa")
+        tests.setNames("saneliswa")
+        tests.setNames("patience")
+        tests.setNames("nande")
 
-        assert.equal(tests.counter(), 3);
+        assert.equal(tests.getCount(), 3);
     });
 
     it('it should greet in English', function () {

@@ -14,7 +14,7 @@ module.exports = function greetFunction(existingNames) {
 
     function greet(selectL, name) {
         //var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        setCount(name);        
+        setNames(name);        
         if (selectL === "English") {
             return "Hi, " + name;
         }
@@ -30,7 +30,7 @@ module.exports = function greetFunction(existingNames) {
     //     return nameList.length
     // }
 
-    function setCount(name) {
+    function setNames(name) {
         if (namesList[name] == undefined) {
             namesList[name] = 1;
         }
@@ -69,7 +69,7 @@ module.exports = function greetFunction(existingNames) {
         // storeNames,
         getNames,
         conditions,
-        setCount,
+        setNames,
         getCount,
         getList
 
