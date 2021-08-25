@@ -12,6 +12,24 @@ const handlebarSetup = exphbs({
     layoutsDir: './views/layouts',
 });
 
+const pg = require("pg");
+const Pool = pg.Pool;
+
+// should we use a SSL connection
+let useSSL = false;
+let local = process.env.LOCAL || false;
+if (process.env.DATABASE_URL && !local) {
+    useSSL = true;
+}
+// which db connection to use
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/greetings';
+
+const pool = new Pool({
+    connectionString,
+    ssl: useSSL
+});
+
+
 app.engine('handlebars', handlebarSetup);
 app.set('view engine', 'handlebars');
 app.use(express.static('public'));
@@ -32,7 +50,9 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.post('/', function (req, res) {
+app.post('/', async function (req, res) {
+
+    try {
     var name = req.body.inputBox;
     var language = req.body.selected;
     var output = greetInsta.greet(language, name);
@@ -45,10 +65,17 @@ app.post('/', function (req, res) {
     else if (!regex.test(name)) {
         req.flash('info', 'Only enter letters eg.John');
     }
+
+    await pool.query('INSERT INTO greetednames (userName, count) VALUES ($1,$2)', [name,count]);
+
     res.render('index', {
         output,
         count,
-    })
+    });
+}catch (err){
+    console.log(err)
+}
+
 });
 
 app.get("/greeted", function (req, res) {
