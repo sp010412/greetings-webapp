@@ -1,4 +1,12 @@
 <div class="linkTwo">
     <h1>See how many times the user is greeted: </h1> 
-    <h3>Hello, {{greetedName}} has been greeted {{nameCount}} time.</h3>
+    <h3>Hello, {{name}} has been greeted {{nameCount}} times.</h3>
+
+    <form action="/previous" method="POST">
+        <button class="button-primary previousBtn" type="submit" name="button"> <span>Previous</span></button>
+    </form>
+
+    <form action="/home" method="POST">
+        <button class="button-primary homeBtn" type="submit" name="button"> <span>Home page</span></button>
+    </form>
 </div>

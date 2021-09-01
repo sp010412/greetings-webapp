@@ -1,14 +1,13 @@
 module.exports = function greetFunction(existingNames) {
-    //var nameList = existingNames || [];
 
     var namesList = {};
     namesList = existingNames
     var pool = existingNames;
-    
+
 
     function greet(selectL, name) {
         //var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        setNames(name);        
+        setNames(name);
         if (selectL === "English") {
             return "Hi, " + name;
         }
@@ -19,12 +18,12 @@ module.exports = function greetFunction(existingNames) {
             return "Molo, " + name;
         }
     }
-// storing names
+    // storing names
     function setNames(name) {
         if (namesList[name] == undefined) {
             namesList[name] = 1;
         }
-        else{
+        else {
             namesList[name]++
         }
     }
@@ -54,60 +53,33 @@ module.exports = function greetFunction(existingNames) {
     }
     //Using an Asynchronous Functions
 
+    async function poolName(nameIn) {
 
-    // async function poolName(poolUser) {
-    //     if (poolUser != '' && /^[a-zA-Z]+$/.test(poolUser)) {
-    //         var name = poolUser[0].toUpperCase() + poolUser.slice(1).toLowerCase();
-    //         const sql = await pool.query(`SELECT * FROM Users WHERE userName = $1`, [name]);
-    //         if (sql.rows.length == 0) {
-    //             await pool.query(`insert into Users (userName, greetedTimes) values ($1, $2)`, [name, 1]);
-    //         } else {
-    //             await pool.query(`UPDATE Users SET greetedTimes = greetedTimes + 1 WHERE userName = $1`, [name])
-    //         }
-    //     }
-    // }
-    // function emptyList() {
-    //     emptyListnamesList = [];
-    // }
-    // async function poolTable(){
-    //     const sqlCount = await pool.query("SELECT COUNT(*) FROM users");
-    //     return sqlCount.rows[0].count;
-    // }
+        const db = await pool.query('SELECT * FROM greetedNames WHERE userName = $1', [nameIn]);
 
-    // async function greeted(){
-    //     const sqlCount = await pool.query("SELECT * FROM users ORDER BY userName");
-    //     return sqlCount.rows;
-    // }
+        if (db.rows.length == 0) {
+            await pool.query('insert into greetedNames (userName, count) values ($1, $2)', [nameIn, 1]);
+        } else {
+            await pool.query('UPDATE greetedNames SET count = count + 1 WHERE userName = $1', [nameIn])
+        }
+    }
 
-    // async function emptyDB() {
-    //     await pool.query("DELETE FROM users")
-    // }
-    // async function getUserName(name){
-    //     const sqldb = await pool.query("SELECT * FROM users WHERE userName = $1", [name])
-    //     return sqldb.rows;
-    // }
-    // async function getnames(){
+    // returns the table with all columns ordered by userName colunm
+    async function all() {
+        let db = await pool.query("SELECT username FROM greetedNames ORDER BY username");
+        return db.rows;
+    }
 
-    //     return
-    // }
+      //returns the count of names
+    async function getForEach(name) {
+        const db = await pool.query('SELECT count FROM greetedNames WHERE userName = $1',[name]);
+        return db.rows[0].count;
+    }
 
-    // async function getcounts(){
-
-    //     return
-    // }
-
-    // async function updatecounts(){
-
-    //     return
-    // }
-
-    // async function clearTable(){
-
-    //     return
-    // }
-
-
-
+    //clears the entire table
+    async function clearTable() {
+        await pool.query("DELETE FROM greetedNames");
+    }
 
     return {
         greet,
@@ -115,8 +87,11 @@ module.exports = function greetFunction(existingNames) {
         conditions,
         setNames,
         getCount,
-        getList
-
+        getList,
+        poolName,
+        all,
+        getForEach,
+        clearTable
     }
 
 }

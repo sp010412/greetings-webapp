@@ -5,7 +5,7 @@ const greetFunction = require("./greetings");
 const flash = require('express-flash');
 const session = require('express-session');
 const app = express();
-const greetInsta = greetFunction();
+
 const handlebarSetup = exphbs({
     partialsDir: "./views/partials",
     viewPath: './views',
@@ -28,7 +28,7 @@ const pool = new Pool({
     connectionString,
     ssl: useSSL
 });
-
+const greetInsta = greetFunction(pool);
 
 app.engine('handlebars', handlebarSetup);
 app.set('view engine', 'handlebars');
@@ -46,47 +46,62 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.get('/', function (req, res) {
-    res.render('index');
-});
+app.get('/', async function (req, res) {
+    res.render('index')});
+
 
 app.post('/', async function (req, res) {
 
     try {
-    var name = req.body.inputBox;
-    var language = req.body.selected;
-    var output = greetInsta.greet(language, name);
-    var count = greetInsta.getCount();
-    const regex = /[a-zA-Z]$/g;
+        var name = req.body.inputBox;
+        var language = req.body.selected;
+        var output = greetInsta.greet(language, name);
+        var count = greetInsta.getCount();
+        const regex = /[a-zA-Z]$/g;
 
-    if (name === '') {
-        req.flash('info', 'Enter your name!');
+        if (name === '') {
+            req.flash('info', 'Enter your name!');
+        }
+        else if (!regex.test(name)) {
+            req.flash('info', 'Only enter letters eg.John');
+        }
+        await greetInsta.poolName(name);
+
+        res.render('index', {
+            output,
+            count,
+            
+        });
+    } catch (err) {
+        console.log(err)
     }
-    else if (!regex.test(name)) {
-        req.flash('info', 'Only enter letters eg.John');
-    }
+});
 
-    await pool.query('INSERT INTO greetednames (userName, count) VALUES ($1,$2)', [name,count]);
+app.get("/greeted", async function (req, res) {
+    res.render("greeted", { greeted: await greetInsta.all() });
+});
 
-    res.render('index', {
-        output,
-        count,
+app.get('/greeted/:username', async function (req, res) {
+    
+    var name = req.params.username;
+    var nameCount = await greetInsta.getForEach(name)
+
+    console.log(nameCount);
+    // var allNames = greetInsta.getList();
+    // var allNames = await greetInsta.getForEach(name);
+    // res.render("counter", { greetedName: name, nameCount: allNames[name] });
+    res.render("counter", { 
+        name,
+        nameCount
     });
-}catch (err){
-    console.log(err)
-}
-
 });
 
-app.get("/greeted", function (req, res) {
-    res.render("greeted", { greeted: greetInsta.getNames() });
+app.post('/resetButton', async function (req, res) {
+    req.flash('infoIn', 'Database is successfully cleared!');
+    await greetInsta.clearTable();
+    res.redirect('/');
 });
 
-app.get('/greeted/:inputBox', function (req, res) {
-    var name = req.params.inputBox;
-    var allNames = greetInsta.getList();
-    res.render("counter", { greetedName: name, nameCount: allNames[name] });
-});
 
 const PORT = process.env.PORT || 3001;
 

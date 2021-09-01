@@ -43,6 +43,11 @@ h1 {
     font-size: 20px;
     text-align: center;
 }
+.passed{
+    color: rgba(26, 128, 0, 0.692);
+    font-size: 20px;
+    text-align: center;
+}
 
 .linkOne li{
     text-align: center;

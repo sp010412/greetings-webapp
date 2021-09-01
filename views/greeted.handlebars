@@ -3,8 +3,13 @@
 
     {{#each greeted}}
     <ul>
-        <li> <a href="/greeted/{{this}}">{{this}}</a> </li>
+        <li> <a href="/greeted/{{username}}">{{username}}</a> </li>
     </ul>
     {{/each}}
+
+
+    <form action="/home" method="POST">
+        <button class="button-primary homeBtn" type="submit" name="button"> <span>Home page</span></button>
+    </form>
 
 </div>
