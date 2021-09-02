@@ -47,7 +47,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.get('/', async function (req, res) {
-    res.render('index')});
+    res.render('index')
+});
 
 
 app.post('/', async function (req, res) {
@@ -56,21 +57,55 @@ app.post('/', async function (req, res) {
         var name = req.body.inputBox;
         var language = req.body.selected;
         var output = greetInsta.greet(language, name);
-        var count = greetInsta.getCount();
-        const regex = /[a-zA-Z]$/g;
-
-        if (name === '') {
+        var count = await greetInsta.countRows();
+        const regex = /^[A-Za-z]+$/;
+        if (regex.test(name) && language) {    
+                await greetInsta.poolName(name);
+                await greetInsta.countRows()
+        }
+        
+        else if (!name && !language) {
+            req.flash('info', 'Enter your name +lang!');
+        }
+        else if (!language && name) {
+            req.flash('info', 'Enter your lang!');
+        }
+        else if (!name) {
             req.flash('info', 'Enter your name!');
         }
+        
         else if (!regex.test(name)) {
             req.flash('info', 'Only enter letters eg.John');
         }
-        await greetInsta.poolName(name);
+        
+        
+
+        // else if (!regex.test(name)) {
+        //         req.flash('info', 'Only enter letters eg.John');
+        //     }
+
+
+
+        // if (name === '') {
+        //     req.flash('info', 'Enter your name!');
+        // }
+        // if (!regex.test(name)) {
+        //     req.flash('info', 'Only enter letters eg.John');
+        // }
+        // if (language == '') {
+        //     req.flash('info', 'Select a language');
+        // }
+        // else if (regex.test(name) && language !='') {
+        //     await greetInsta.poolName(name);
+        // }
+
+
+
 
         res.render('index', {
             output,
             count,
-            
+
         });
     } catch (err) {
         console.log(err)
@@ -82,7 +117,7 @@ app.get("/greeted", async function (req, res) {
 });
 
 app.get('/greeted/:username', async function (req, res) {
-    
+
     var name = req.params.username;
     var nameCount = await greetInsta.getForEach(name)
 
@@ -90,7 +125,7 @@ app.get('/greeted/:username', async function (req, res) {
     // var allNames = greetInsta.getList();
     // var allNames = await greetInsta.getForEach(name);
     // res.render("counter", { greetedName: name, nameCount: allNames[name] });
-    res.render("counter", { 
+    res.render("counter", {
         name,
         nameCount
     });
@@ -100,6 +135,14 @@ app.post('/resetButton', async function (req, res) {
     req.flash('infoIn', 'Database is successfully cleared!');
     await greetInsta.clearTable();
     res.redirect('/');
+});
+
+app.post('/home', async function (req, res) {
+    res.redirect('/');
+});
+
+app.post('/previous', async function (req, res) {
+    res.redirect('/greeted');
 });
 
 

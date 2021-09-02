@@ -3,29 +3,35 @@ module.exports = function greetFunction(existingNames) {
     var namesList = {};
     namesList = existingNames
     var pool = existingNames;
+    const regex = /[a-zA-Z]$/g;
 
 
     function greet(selectL, name) {
         //var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        setNames(name);
-        if (selectL === "English") {
-            return "Hi, " + name;
-        }
-        if (selectL === "Afrikaans") {
-            return "Hallo, " + name;
-        }
-        if (selectL === "Isixhosa") {
-            return "Molo, " + name;
+        if (regex.test(name)) {
+            setNames(name);
+            if (selectL === "English") {
+                return "Hi, " + name;
+            }
+            if (selectL === "Afrikaans") {
+                return "Hallo, " + name;
+            }
+            if (selectL === "Isixhosa") {
+                return "Molo, " + name;
+
+            }
         }
     }
     // storing names
     function setNames(name) {
+
         if (namesList[name] == undefined) {
             namesList[name] = 1;
         }
         else {
             namesList[name]++
         }
+
     }
 
     function getCount() {
@@ -70,15 +76,21 @@ module.exports = function greetFunction(existingNames) {
         return db.rows;
     }
 
-      //returns the count of names
+    //returns the count of names
     async function getForEach(name) {
-        const db = await pool.query('SELECT count FROM greetedNames WHERE userName = $1',[name]);
+        const db = await pool.query('SELECT count FROM greetedNames WHERE userName = $1', [name]);
         return db.rows[0].count;
     }
 
     //clears the entire table
     async function clearTable() {
         await pool.query("DELETE FROM greetedNames");
+    }
+
+    //this counts the rows in the table and returns it as a counter b
+    async function countRows() {
+        const db = await pool.query("SELECT COUNT(*) FROM greetedNames");
+        return db.rows[0].count;
     }
 
     return {
@@ -91,7 +103,8 @@ module.exports = function greetFunction(existingNames) {
         poolName,
         all,
         getForEach,
-        clearTable
+        clearTable,
+        countRows
     }
 
 }
