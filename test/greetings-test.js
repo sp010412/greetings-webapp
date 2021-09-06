@@ -28,11 +28,11 @@ describe('greetings', async function () {
         let tests = greetFunction(pool)
         assert.equal(tests.greet("Isixhosa", "Saneliswa"), "Molo, Saneliswa");
     });
-    beforeEach(async function () {
-        await pool.query("delete from greetednames;");
-    });
 
     it('Should return the greeted userName', async function () {
+        beforeEach(async function () {
+            await pool.query("delete from greetednames;");
+        });
         let tests = greetFunction(pool)
         await tests.poolName('Saneliswa');
         var userName = await tests.all('Saneliswa')
@@ -41,6 +41,9 @@ describe('greetings', async function () {
     });
 
     it('Should count the names of all greeted users', async function () {
+        beforeEach(async function () {
+            await pool.query("delete from greetednames;");
+        });
         let tests = greetFunction(pool)
         await tests.poolName('Saneliswa');
         await tests.poolName('Emihle');
@@ -55,6 +58,9 @@ describe('greetings', async function () {
 
 
     it('Should get the total count for each name ', async function () {
+        beforeEach(async function () {
+            await pool.query("delete from greetednames;");
+        });
         let tests = greetFunction(pool)
         await tests.poolName('Saneliswa');
         await tests.poolName('Saneliswa');
@@ -69,6 +75,9 @@ describe('greetings', async function () {
     });
 
     it('should delete from greetings database', async function () {
+        beforeEach(async function () {
+            await pool.query("delete from greetednames;");
+        });
         let tests = greetFunction(pool)
         await tests.clearTable();
         assert.equal(0, await tests.all())
