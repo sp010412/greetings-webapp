@@ -72,7 +72,6 @@ describe('greetings', async function () {
         let tests = greetFunction(pool)
         await tests.clearTable();
         assert.equal(0, await tests.all())
-        await tests.clearTable();
 
     });
 
