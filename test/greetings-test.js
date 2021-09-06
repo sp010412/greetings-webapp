@@ -14,12 +14,7 @@ const pool = new Pool({
     }
 });
 
-// const testsInsta = greetFunction(pool);
-
 describe('greetings', async function () {
-    beforeEach(async function () {
-        await pool.query("delete from greetednames;");
-    });
 
     it('it should greet in English', function () {
         let tests = greetFunction(pool)
@@ -32,6 +27,9 @@ describe('greetings', async function () {
     it('it should greet in Isixhosa', function () {
         let tests = greetFunction(pool)
         assert.equal(tests.greet("Isixhosa", "Saneliswa"), "Molo, Saneliswa");
+    });
+    beforeEach(async function () {
+        await pool.query("delete from greetednames;");
     });
 
     it('Should return the greeted userName', async function () {
