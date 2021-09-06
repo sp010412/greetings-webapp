@@ -34,32 +34,47 @@ describe('greetings', async function () {
         assert.equal(tests.greet("Isixhosa", "Saneliswa"), "Molo, Saneliswa");
     });
 
+    it('Should return the greeted userName', async function () {
+        let tests = greetFunction(pool)
+        await tests.poolName('Saneliswa');
+        var userName = await tests.all('Saneliswa')
+        assert.equal('Saneliswa', userName[0].username)
+        
+    });
+
+    it('Should count the names of all greeted users', async function () {
+        let tests = greetFunction(pool)
+        await tests.poolName('Saneliswa');
+        await tests.poolName('Emihle');
+        await tests.poolName('Edna');
+
+        await tests.all('Saneliswa');
+        await tests.all('Emihle');
+        await tests.all('Edna');
+
+        assert.equal(3, await tests.countRows());
+    });
+
+
+    it('Should get the total count for each name ', async function () {
+        let tests = greetFunction(pool)
+        await tests.poolName('Saneliswa');
+        await tests.poolName('Saneliswa');
+        await tests.poolName('Zama');
+        await tests.poolName('Saneliswa');
+
+        await tests.all('Saneliswa');
+        await tests.all('Zama');
+
+        assert.equal(3, await tests.getForEach('Saneliswa'));
+        assert.equal(1, await tests.getForEach('Zama'));
+    });
+
     it('should delete from greetings database', async function () {
         let tests = greetFunction(pool)
         await tests.clearTable();
         assert.equal(0, await tests.all())
-    })
-
-    it('Should return the greeted userName', async function () {
-        let tests = greetFunction(pool)
-        await tests.poolName('Worthy');
-        var userName = await tests.all('Worthy')
-        assert.equal('Worthy', userName[0].username)
-        
-    })
-
-    it('Should count the names of all greeted users', async function () {
-        let tests = greetFunction(pool)
-        await tests.poolName('Worthy');
-        await tests.poolName('Owethu');
-        await tests.poolName('Ethu');
-
-        await tests.all('Worthy');
-        await tests.all('Owethu');
-        await tests.all('Ethu');
-
-        assert.equal(3, await tests.countRows());
-    })
+    });
         
     after(function () {
         pool.end();

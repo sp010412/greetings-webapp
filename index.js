@@ -52,7 +52,7 @@ app.use(bodyParser.json())
 app.get('/', async function (req, res) {
     res.render('index', {
         count: await greetInsta.countRows()
-    });
+    })
 });
 
 
@@ -85,7 +85,7 @@ app.post('/', async function (req, res) {
     
         res.render('index', {
             output,
-            count,
+            count: await greetInsta.countRows()
 
         });
     } catch (err) {
