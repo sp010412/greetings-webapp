@@ -29,6 +29,7 @@ h1 {
 .linkTwo{
     text-align: center;
     font-size: 20px;
+    
 }
 
 .sign {
@@ -53,6 +54,12 @@ h1 {
     text-align: center;
     list-style-type: none;
     font-size: 25px;
+}
+
+.move{
+    text-align: end;
+    margin-top: 45px;
+    margin-right: 25em;
 }
 
 .yep {
@@ -83,6 +90,7 @@ h1 {
     margin-top: 20px;
     font-size: 25px;
 }
+
 
 
 /*.displayedName{

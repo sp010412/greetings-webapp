@@ -21,12 +21,15 @@ let local = process.env.LOCAL || false;
 if (process.env.DATABASE_URL && !local) {
     useSSL = true;
 }
+
 // which db connection to use
 const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/greetings';
 
 const pool = new Pool({
     connectionString,
-    ssl: useSSL
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 const greetInsta = greetFunction(pool);
 
@@ -47,7 +50,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.get('/', async function (req, res) {
-    res.render('index')
+    res.render('index', {
+        count: await greetInsta.countRows()
+    });
 });
 
 
@@ -65,10 +70,10 @@ app.post('/', async function (req, res) {
         }
         
         else if (!name && !language) {
-            req.flash('info', 'Enter your name +lang!');
+            req.flash('info', 'Enter your name and select a language!');
         }
         else if (!language && name) {
-            req.flash('info', 'Enter your lang!');
+            req.flash('info', 'Select a preferred language!');
         }
         else if (!name) {
             req.flash('info', 'Enter your name!');
@@ -77,31 +82,7 @@ app.post('/', async function (req, res) {
         else if (!regex.test(name)) {
             req.flash('info', 'Only enter letters eg.John');
         }
-        
-        
-
-        // else if (!regex.test(name)) {
-        //         req.flash('info', 'Only enter letters eg.John');
-        //     }
-
-
-
-        // if (name === '') {
-        //     req.flash('info', 'Enter your name!');
-        // }
-        // if (!regex.test(name)) {
-        //     req.flash('info', 'Only enter letters eg.John');
-        // }
-        // if (language == '') {
-        //     req.flash('info', 'Select a language');
-        // }
-        // else if (regex.test(name) && language !='') {
-        //     await greetInsta.poolName(name);
-        // }
-
-
-
-
+    
         res.render('index', {
             output,
             count,
@@ -121,7 +102,6 @@ app.get('/greeted/:username', async function (req, res) {
     var name = req.params.username;
     var nameCount = await greetInsta.getForEach(name)
 
-    console.log(nameCount);
     // var allNames = greetInsta.getList();
     // var allNames = await greetInsta.getForEach(name);
     // res.render("counter", { greetedName: name, nameCount: allNames[name] });

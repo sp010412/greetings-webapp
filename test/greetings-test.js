@@ -1,50 +1,68 @@
 
 const assert = require('assert');
 const greetFunction = require("../greetings");
-
-describe('greetings', function () {
-    it('it should get names set', function () {
-        let tests = greetFunction()
-        tests.setNames("saneliswa")
+const pg = require("pg");
+const Pool = pg.Pool;
 
 
-        assert.equal(tests.getNames(), "saneliswa");
-    });
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/greetings';
 
-    it('it should prevent duplication of names from being counted ', function () {
-        let tests = greetFunction()
-        tests.setNames("saneliswa")
-        tests.setNames("saneliswa")
-        tests.setNames("patience")
-        tests.setNames("nande")
+const pool = new Pool({
+    connectionString,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
-        assert.equal(tests.getCount(), 3);
+// const testsInsta = greetFunction(pool);
+
+describe('greetings', async function () {
+    beforeEach(async function () {
+        await pool.query("delete from greetednames;");
     });
 
     it('it should greet in English', function () {
-        let tests = greetFunction()
+        let tests = greetFunction(pool)
         assert.equal(tests.greet("English", "Saneliswa"), "Hi, Saneliswa");
     });
     it('it should greet in Afrikaans ', function () {
-        let tests = greetFunction()
+        let tests = greetFunction(pool)
         assert.equal(tests.greet("Afrikaans", "Saneliswa"), "Hallo, Saneliswa");
     });
     it('it should greet in Isixhosa', function () {
-        let tests = greetFunction()
+        let tests = greetFunction(pool)
         assert.equal(tests.greet("Isixhosa", "Saneliswa"), "Molo, Saneliswa");
     });
 
-    it('it should not accept numbers', function () {
-        let tests = greetFunction()
-        
-        assert.equal(tests.conditions("552"), 'Only enter letters eg.John');
+    it('should delete from greetings database', async function () {
+        let tests = greetFunction(pool)
+        await tests.clearTable();
+        assert.equal(0, await tests.all())
+    })
 
-    });
-    it('it should not accept empty spaces', function () {
-        let tests = greetFunction()
+    it('Should return the greeted userName', async function () {
+        let tests = greetFunction(pool)
+        await tests.poolName('Worthy');
+        var userName = await tests.all('Worthy')
+        assert.equal('Worthy', userName[0].username)
         
-        assert.equal(tests.conditions(""), 'Enter your name!');
+    })
 
+    it('Should count the names of all greeted users', async function () {
+        let tests = greetFunction(pool)
+        await tests.poolName('Worthy');
+        await tests.poolName('Owethu');
+        await tests.poolName('Ethu');
+
+        await tests.all('Worthy');
+        await tests.all('Owethu');
+        await tests.all('Ethu');
+
+        assert.equal(3, await tests.countRows());
+    })
+        
+    after(function () {
+        pool.end();
     });
 
 });

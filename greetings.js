@@ -5,7 +5,6 @@ module.exports = function greetFunction(existingNames) {
     var pool = existingNames;
     const regex = /[a-zA-Z]$/g;
 
-
     function greet(selectL, name) {
         //var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
         if (regex.test(name)) {
@@ -23,15 +22,16 @@ module.exports = function greetFunction(existingNames) {
         }
     }
     // storing names
-    function setNames(name) {
-
-        if (namesList[name] == undefined) {
-            namesList[name] = 1;
+    function setNames(string) {
+        if (string != '' && /^[a-zA-Z]+$/.test(string)) {
+            var name = string[0].toUpperCase() + string.slice(1).toLowerCase();
+            if (namesList[name] == undefined) {
+                namesList[name] = 1;
+            }
+            else {
+                namesList[name]++
+            }
         }
-        else {
-            namesList[name]++
-        }
-
     }
 
     function getCount() {
@@ -46,27 +46,20 @@ module.exports = function greetFunction(existingNames) {
         return namesList;
     }
 
-    function conditions(name) {
-        // name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        const regex = /[a-zA-Z]$/g;
-
-        if (name === "") {
-            return 'Enter your name!';
-        }
-        if (!regex.test(name)) {
-            return 'Only enter letters eg.John';
-        }
-    }
     //Using an Asynchronous Functions
 
-    async function poolName(nameIn) {
+    async function poolName(poolUser) {
 
-        const db = await pool.query('SELECT * FROM greetedNames WHERE userName = $1', [nameIn]);
+        if (poolUser != '' && /^[a-zA-Z]+$/.test(poolUser)) {
+            var nameIn = poolUser[0].toUpperCase() + poolUser.slice(1).toLowerCase();
 
-        if (db.rows.length == 0) {
-            await pool.query('insert into greetedNames (userName, count) values ($1, $2)', [nameIn, 1]);
-        } else {
-            await pool.query('UPDATE greetedNames SET count = count + 1 WHERE userName = $1', [nameIn])
+            const db = await pool.query('SELECT * FROM greetedNames WHERE userName = $1', [nameIn]);
+
+            if (db.rows.length == 0) {
+                await pool.query('insert into greetedNames (userName, count) values ($1, $2)', [nameIn, 1]);
+            } else {
+                await pool.query('UPDATE greetedNames SET count = count + 1 WHERE userName = $1', [nameIn])
+            }
         }
     }
 
@@ -96,7 +89,6 @@ module.exports = function greetFunction(existingNames) {
     return {
         greet,
         getNames,
-        conditions,
         setNames,
         getCount,
         getList,
