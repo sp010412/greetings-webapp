@@ -34,18 +34,6 @@ module.exports = function greetFunction(existingNames) {
         }
     }
 
-    function getCount() {
-        return Object.keys(namesList).length;
-    }
-
-    function getNames() {
-        return Object.keys(namesList)
-    }
-
-    function getList() {
-        return namesList;
-    }
-
     //Using an Asynchronous Functions
 
     async function poolName(poolUser) {
@@ -88,10 +76,7 @@ module.exports = function greetFunction(existingNames) {
 
     return {
         greet,
-        getNames,
         setNames,
-        getCount,
-        getList,
         poolName,
         all,
         getForEach,

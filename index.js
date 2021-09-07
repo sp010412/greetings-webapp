@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const greetFunction = require("./greetings");
 const flash = require('express-flash');
 const session = require('express-session');
+const routes = require('./routs')
 const app = express();
 
 const handlebarSetup = exphbs({
@@ -32,6 +33,7 @@ const pool = new Pool({
     }
 });
 const greetInsta = greetFunction(pool);
+const Routes = routes(greetInsta)
 
 app.engine('handlebars', handlebarSetup);
 app.set('view engine', 'handlebars');
@@ -49,81 +51,21 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.get('/', async function (req, res) {
-    res.render('index', {
-        count: await greetInsta.countRows()
-    })
-});
 
+//Routes
+app.get('/', Routes.home);
 
-app.post('/', async function (req, res) {
+app.post('/', Routes.actions);
 
-    try {
-        var name = req.body.inputBox;
-        var language = req.body.selected;
-        var output = greetInsta.greet(language, name);
-        // var count = await greetInsta.countRows();
-        const regex = /^[A-Za-z]+$/;
-        if (regex.test(name) && language) {    
-                await greetInsta.poolName(name);
-                await greetInsta.countRows()
-        }
-        
-        else if (!name && !language) {
-            req.flash('info', 'Enter your name and select a language!');
-        }
-        else if (!language && name) {
-            req.flash('info', 'Select a preferred language!');
-        }
-        else if (!name) {
-            req.flash('info', 'Enter your name!');
-        }
-        
-        else if (!regex.test(name)) {
-            req.flash('info', 'Only enter letters eg.John');
-        }
-    
-        res.render('index', {
-            count: await greetInsta.countRows(),
-            output: output
+app.get("/greeted", Routes.list);
 
-        });
-    } catch (err) {
-        console.log(err)
-    }
-});
+app.get('/greeted/:username', Routes.greetedTimes);
 
-app.get("/greeted", async function (req, res) {
-    res.render("greeted", { greeted: await greetInsta.all() });
-});
+app.post('/resetButton', Routes.remove);
 
-app.get('/greeted/:username', async function (req, res) {
+app.post('/home', Routes.homeBtn);
 
-    var name = req.params.username;
-    var nameCount = await greetInsta.getForEach(name)
-
-    // var allNames = greetInsta.getList();
-    // var allNames = await greetInsta.getForEach(name);
-    // res.render("counter", { greetedName: name, nameCount: allNames[name] });
-    res.render("counter", {
-        name,
-        nameCount
-    });
-});
-
-app.post('/resetButton', async function (req, res) {
-    req.flash('infoIn', 'Database is successfully cleared!');
-    await greetInsta.clearTable();
-    res.redirect('/');
-});
-
-app.post('/home', async function (req, res) {
-    res.redirect('/');
-});
-
-app.post('/previous', async function (req, res) {
-    res.redirect('/greeted');
-});
+app.post('/previous', Routes.previousBtn);
 
 
 const PORT = process.env.PORT || 3001;
