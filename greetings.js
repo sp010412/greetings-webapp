@@ -3,7 +3,7 @@ module.exports = function greetFunction(existingNames) {
     var namesList = {};
     namesList = existingNames
     var pool = existingNames;
-    const regex = /[a-zA-Z]$/g;
+    const regex = /^[A-Za-z]+$/;
 
     function greet(selectL, name) {
         //var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()

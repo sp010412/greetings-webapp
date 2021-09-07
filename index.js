@@ -61,7 +61,7 @@ app.post('/', async function (req, res) {
     try {
         var name = req.body.inputBox;
         var language = req.body.selected;
-        var out = greetInsta.greet(language, name);
+        var output = greetInsta.greet(language, name);
         // var count = await greetInsta.countRows();
         const regex = /^[A-Za-z]+$/;
         if (regex.test(name) && language) {    
@@ -84,8 +84,8 @@ app.post('/', async function (req, res) {
         }
     
         res.render('index', {
-            output: out,
-            count: await greetInsta.countRows()
+            count: await greetInsta.countRows(),
+            output: output
 
         });
     } catch (err) {
