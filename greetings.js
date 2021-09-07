@@ -6,17 +6,17 @@ module.exports = function greetFunction(existingNames) {
     const regex = /^[A-Za-z]+$/;
 
     function greet(selectL, name) {
-        //var name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        if (regex.test(name)) {
-            setNames(name);
+        var upper = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+        if (regex.test(upper)) {
+            setNames(upper);
             if (selectL === "English") {
-                return "Hi, " + name;
+                return "Hi, " + upper;
             }
             if (selectL === "Afrikaans") {
-                return "Hallo, " + name;
+                return "Hallo, " + upper;
             }
             if (selectL === "Isixhosa") {
-                return "Molo, " + name;
+                return "Molo, " + upper;
 
             }
         }
