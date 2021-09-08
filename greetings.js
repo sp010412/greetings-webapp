@@ -8,7 +8,6 @@ module.exports = function greetFunction(existingNames) {
     function greet(selectL, name) {
         var upper = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
         if (regex.test(upper)) {
-            setNames(upper);
             if (selectL === "English") {
                 return "Hi, " + upper;
             }
@@ -21,19 +20,6 @@ module.exports = function greetFunction(existingNames) {
             }
         }
     }
-    // storing names
-    function setNames(string) {
-        if (string != '' && /^[a-zA-Z]+$/.test(string)) {
-            var name = string[0].toUpperCase() + string.slice(1).toLowerCase();
-            if (namesList[name] == undefined) {
-                namesList[name] = 1;
-            }
-            else {
-                namesList[name]++
-            }
-        }
-    }
-
     //Using an Asynchronous Functions
 
     async function poolName(poolUser) {
@@ -76,7 +62,6 @@ module.exports = function greetFunction(existingNames) {
 
     return {
         greet,
-        setNames,
         poolName,
         all,
         getForEach,
