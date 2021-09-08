@@ -57,9 +57,8 @@ h1 {
 }
 
 .move{
-    text-align: end;
+    text-align: center;
     margin-top: 45px;
-    margin-right: 25em;
 }
 
 .yep {
@@ -97,7 +96,7 @@ h1 {
 font-family: 'Original Surfer', cursive;
 }*/
 
-.greetMeBtn, .resetBtn {
+.greetMeBtn, .resetBtn, .previousBtn, .homeBtn{
     background-color: white;
     color: black;
     border: 2px solid red;
@@ -105,24 +104,24 @@ font-family: 'Original Surfer', cursive;
     height: 5vh;
 }
 
-.greetMeBtn, .resetBtn {
+.greetMeBtn, .resetBtn, .previousBtn, .homeBtn{
     transition-duration: 0.4s;
 }
 
-.greetMeBtn:hover, .resetBtn:hover {
+.greetMeBtn:hover, .resetBtn:hover, .previousBtn:hover, .homeBtn:hover {
     background-color: red;
     color: white;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.greetMeBtn span, .resetBtn span {
+.greetMeBtn span, .resetBtn span, .previousBtn span, .homeBtn span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
 
-.greetMeBtn span:after, .resetBtn span:after {
+.greetMeBtn span:after, .resetBtn span:after, .previousBtn span:after, .homeBtn span:after  {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -131,11 +130,11 @@ font-family: 'Original Surfer', cursive;
     transition: 0.5s;
 }
 
-.greetMeBtn:hover span, .resetBtn:hover span {
+.greetMeBtn:hover span, .resetBtn:hover span, .previousBtn:hover span, .homeBtn:hover span  {
     padding-right: 25px;
 }
 
-.greetMeBtn:hover span:after, .resetBtn:hover span:after {
+.greetMeBtn:hover span:after, .resetBtn:hover span:after, .previousBtn:hover span:after, .homeBtn:hover span:after {
     opacity: 1;
     right: 0;
 }
